@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Pixel Universe Simulator"
+version = "1.0.0"
+id = "artifacts/universe-sim"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18911
+
+[services.development]
+run = "pnpm --filter @workspace/universe-sim run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/universe-sim", "run", "build" ]
+publicDir = "artifacts/universe-sim/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18911"
+BASE_PATH = "/"
